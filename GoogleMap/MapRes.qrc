@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Map/Map.html</file>
+        <file>Qml/Main.qml</file>
+        <file>Map/qwebchannel.js</file>
+        <file>Map/Maps.js</file>
+        <file>Map/QmlPlugin.js</file>
+    </qresource>
+</RCC>
