@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>WorkSpace.qml</file>
+        <file>MapView.qml</file>
+        <file>VideoView.qml</file>
+        <file>WorkSpaceTile.qml</file>
+    </qresource>
+</RCC>
