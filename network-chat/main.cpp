@@ -49,6 +49,10 @@
 ****************************************************************************/
 
 #include <QApplication>
+#include <QQuickView>
+#include <QQmlContext>
+#include "AppManager.h"
+#include "QmlBridge.h"
 
 #include "chatdialog.h"
 
@@ -101,6 +105,20 @@ int main(int argc, char *argv[])
             settings.endGroup();
         }
     }
+
+
+    AppManager *appM = new AppManager;
+    QmlBridge *qmlBridge = QmlBridge::instance();
+
+    QObject::connect(qmlBridge, SIGNAL(sendDataOverNetwork(QString)),
+                     appM, SLOT(sendDataOverNetwork(QString)));
+
+    QQuickView *view = new QQuickView;
+    view->setSource(QUrl("qrc:/Qml/Main.qml"));
+    view->rootContext()->setContextProperty("qmlBridge", qmlBridge);
+    qmlBridge->setQmlContext(view->rootContext());
+    qmlBridge->setQmlRootItem(view->rootObject());
+    view->show();
 
     ChatDialog dialog;
     dialog.show();

@@ -53,6 +53,7 @@
 #include "client.h"
 #include "connection.h"
 #include "peermanager.h"
+#include <QDebug>
 
 Client::Client()
 {
@@ -68,6 +69,7 @@ Client::Client()
 
 void Client::sendMessage(const QString &message)
 {
+
     if (message.isEmpty())
         return;
 

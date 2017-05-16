@@ -60,6 +60,7 @@ void ChatDialog::returnPressed()
     } else {
         client.sendMessage(text);
         appendMessage(myNickName, text);
+        qDebug()<<" "<<text;
     }
 
     lineEdit->clear();

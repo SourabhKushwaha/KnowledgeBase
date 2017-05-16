@@ -93,6 +93,7 @@ bool Connection::sendMessage(const QString &message)
 
     QByteArray msg = message.toUtf8();
     QByteArray data = "MESSAGE " + QByteArray::number(msg.size()) + ' ' + msg;
+    qDebug()<<"message "<<data;
     return write(data) == data.size();
 }
 
