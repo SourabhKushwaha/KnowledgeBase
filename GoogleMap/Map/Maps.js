@@ -46,7 +46,7 @@
 */
 
 var Map;
-var ApiKey = "AIzaSyBCdNVOM-Zie0oZjy4Dg-4ImIXFAHvfNx0";//qmlObject.apiKey;
+
 var Marker;
 
 function updateMarker(lat){
@@ -54,9 +54,10 @@ function updateMarker(lat){
     Marker.setPosition(latLng);
 }
 
-function initialize() {
+function initialize(){
+
     var mapOptions = {
-        center: new google.maps.LatLng(dataManager.lattitute, dataManager.longitute),
+        center: new google.maps.LatLng(20, 77),
         zoom: 10,
         mapTypeId: google.maps.MapTypeId.HYBRID
     }
@@ -64,15 +65,11 @@ function initialize() {
     Map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
     Marker = new google.maps.Marker({
-        position: new google.maps.LatLng(dataManager.lattitute, dataManager.longitute),
-        map: Map,
-        title: "Marker A",
-    });
-
-    alert(qmlObject.getApiKey());
+                                        position: new google.maps.LatLng(dataManager.lattitute, dataManager.longitute),
+                                        map: Map,
+                                        title: "Marker A",
+                                    });
 }
-
-
 
 function loadScript() {
     var script = document.createElement("script");

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
+
 import QtWebEngine 1.4
 import QtWebChannel  1.0
 
@@ -27,32 +28,30 @@ Item{
         function someMethod(message) {
             console.log(message);
             someSignal(message);
-            return "QML";
+            callHtmlFunction();
+            return message+" QML";
         }
 
-        function getApiKey(){
+        function callHtmlFunction(){
             //Call javascript function
-            webEnginView.runJavaScript("updateMarker("+ 12.97 +")");
-            return dataManager.getAPIKey();
+            webEnginView.runJavaScript("updateMarker("+ 20.97 +")");
         }
-
-       property string apiKey: dataManager.getAPIKey()
     }
 
     Rectangle{
         anchors.fill: parent
         color: "black"
 
-    WebEngineView{
-        id : webEnginView
-        anchors.fill: parent
-        url : dataManager.htmlURL();
-        webChannel: webChannel
-    }
+        WebEngineView{
+            id : webEnginView
+            anchors.fill: parent
+            url : dataManager.htmlURL();
+            webChannel: webChannel
+        }
     }
 
-  Component.onCompleted: {
-      webChannel.registerObject("qmlObject", qmlObject);
-      webChannel.registerObject("dataManager", dataManager);
-  }
+    Component.onCompleted: {
+        webChannel.registerObject("qmlObject", qmlObject);
+        webChannel.registerObject("dataManager", dataManager);
+    }
 }
