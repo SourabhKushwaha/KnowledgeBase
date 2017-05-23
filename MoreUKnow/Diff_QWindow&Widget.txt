@@ -1,0 +1,19 @@
+QWindow has been introduced in Qt 5.0 due to the gui / widgets split. QWidget now lives 
+in its own library (QtWidgets). it was necessary to provide the abstraction of a 
+"toplevel window" for non-widgets based applications, and thus QWindow was created and lives in QtGui.
+
+There is an entire class of non-widgets based applications: all those using QtQuick2. 
+They don't use the QtWidget library at all, and as a matter of fact, when using them 
+you're always somehow using QWindows explicitely (QQuickView inherits from QWindow).
+
+Even when using widgets, top-level QWindows get created for you by the Qt kernel, which
+ also keeps the properties and the flags of such QWindow objects in sync with the corresponding 
+top-level QWidgets. This way you can just deal with widgets like you always did, without knowing
+ about QWindow at all. Existing applications will continue to run as expected, etc. etc.
+
+The only reason (so far) I've been using QWindows explicitely is for a very specific use case:
+ to draw pure OpenGL content. This is very easy to achieve (by setting an OpenGL surface type
+ on the window), and avoids you to bring in additional dependencies (QtWidgets, QtOpenGL, etc.,
+ which have a cost in terms of library size); it allows to create a OpenGL drawing surface in like
+ 10 lines of code which will work on Linux, Windows, Mac, QNX, "embedded Linux", and very likely
+ Android and iOS too. From this point of view it acts as a perfect SDL replacement.
