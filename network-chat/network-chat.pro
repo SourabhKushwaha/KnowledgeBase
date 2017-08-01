@@ -1,28 +1,21 @@
-QT += core gui network qml quick
+QT += core qml quick gui network
 
 TEMPLATE = app
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-HEADERS       = chatdialog.h \
-                client.h \
+HEADERS       = client.h \
                 connection.h \
                 peermanager.h \
                 server.h \
-    QmlBridge.h \
-    AppManager.h
-SOURCES       = chatdialog.cpp \
-                client.cpp \
+                QmlBridge.h \
+                AppManager.h
+SOURCES       = client.cpp \
                 connection.cpp \
                 main.cpp \
                 peermanager.cpp \
                 server.cpp \
-    QmlBridge.cpp \
-    AppManager.cpp
-FORMS         = chatdialog.ui
-QT           += network widgets
-
+                QmlBridge.cpp \
+                AppManager.cpp
+FORMS         =
 
 RESOURCES += \
     AppResource.qrc
-
-

@@ -40,10 +40,10 @@ void AppManager::sendDataOverNetwork(const QString &msg)
 
 void AppManager::newParticipant(const QString &nick)
 {
-    d->qmlBridge->recievedMsg(nick);
+    d->qmlBridge->recievedMsg(QString("%1 joined").arg(nick));
 }
 
 void AppManager::participantLeft(const QString &nick)
 {
-    d->qmlBridge->recievedMsg(nick);
+    d->qmlBridge->recievedMsg(QString("%1 left").arg(nick));
 }

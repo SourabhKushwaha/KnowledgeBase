@@ -1,11 +1,11 @@
-import QtQuick 2.1
+import QtQuick 2.6
+import QtQuick.Controls 2.1
 import QtQuick.Window 2.0
 
 Item{
     id:root
     objectName: "root"
-    height: 300//Screen.desktopAvailableHeight
-    width: 200//Screen.desktopAvailableWidth
+    anchors.fill: parent
 
     Rectangle{
         id: mainRect
@@ -20,11 +20,35 @@ Item{
             width: parent.width
             color: "white"
 
-            Text{
-                id: userNameL
+            GridView{
+                id:onlineUsers
                 anchors.fill: parent
-                color: "blue"
-                text:"hello "
+                flickableDirection: Flickable.HorizontalAndVerticalFlick
+                model:userList
+                delegate: Column {
+                    //Image { source: portrait; anchors.horizontalCenter: parent.horizontalCenter }
+                    Text { text: name }//; anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                ListModel {
+                    id:userList
+                    ListElement {
+                        name: "Jim Williams"
+                        portrait: "pics/portrait.png"
+                    }
+                    ListElement {
+                        name: "John Brown"
+                        portrait: "pics/portrait.png"
+                    }
+                    ListElement {
+                        name: "Bill Smyth"
+                        portrait: "pics/portrait.png"
+                    }
+                    ListElement {
+                        name: "Sam Wise"
+                        portrait: "pics/portrait.png"
+                    }
+                }
             }
         }
 
@@ -34,9 +58,25 @@ Item{
             height: 3*parent.height/5
             width: parent.width
             color: "pink"
-            Text{
-                id: messageArea
+            ListView {
+                id: listView
                 anchors.fill: parent
+                model: listModel
+
+                delegate: Rectangle {
+                    color: "transparent"
+                    width: listView.width
+                    height: vHeight
+                    Text {
+                        text: textVal
+                        font.pixelSize: 14
+                        anchors.centerIn: parent
+                    }
+                }
+            }
+
+            ListModel {
+                id: listModel
             }
         }
 
@@ -48,44 +88,49 @@ Item{
             width: parent.width - sendMsgBtn.width
             TextEdit{
                 id: sendMsgBox
+                font.pixelSize: 14
                 anchors.fill: parent
             }
         }
 
-        Rectangle{
+        Button{
             id: sendMsgBtn
             anchors.top: messageAreaRect.bottom
             anchors.left: sendMsgBoxRect.right
-            color: "red"
             height: sendMsgBoxRect.height
             width: root.width/5
 
             Text{
-                height: parent.height/2
-                width: parent.width/2
-                //anchors.fill: parent
-                anchors.centerIn: sendMsgBtn.Center
+                anchors.centerIn: sendMsgBtn
                 text: "Send"
             }
 
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    if(sendMsgBox.text !== ""){
-                        qmlBridge.sendMsg(sendMsgBox.text);
-                        appendMsgInMsgArea(sendMsgBox.text);
-                        sendMsgBox.text = "";
-                    }
+            onClicked: {
+                if(sendMsgBox.text !== ""){
+                    qmlBridge.sendMsg(sendMsgBox.text);
+                    sendMsgBox.text = "";
                 }
             }
         }
     }
 
-    function appendUserInfo(val){
-        messageArea.text += val;
+    function appendMsgInMsgArea(val){
+        listModel.append(createListElement(val));
     }
 
-    function appendMsgInMsgArea(val){
-        messageArea.text += val +"\n";
+    function createListElement(val) {
+        return {
+            vHeight:(count(val)*15),
+            textVal:val
+        }
+    }
+
+    function count(string) {
+        var count = 1;
+        for (var i=0; i<string.length; i += 1)
+                if (string[i] === "\n")
+                    count += 1;
+
+         return count;
     }
 }
