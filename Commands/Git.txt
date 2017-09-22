@@ -1,0 +1,18 @@
+git clone --recursive git@github.com:asteriaaerospace/MCS3.0.git
+
+git config --global user.email "nagma.rafath@asteria.co.in"
+git config --global user.name "nagmarafath"
+
+git remote rename origin asteria
+
+git remote add sourabh git@github.com:SourabhKus/MCS3.0.git
+
+
+git remote -v
+---------------
+asteria git@github.com:asteriaaerospace/MavlinkProtocol.git (fetch)
+asteria git@github.com:asteriaaerospace/MavlinkProtocol.git (push)
+sourabh git@github.com:SourabhKus/MavlinkProtocol.git (fetch) /// This is path of your FORKED repo
+sourabh git@github.com:SourabhKus/MavlinkProtocol.git (push)
+
+git remote rm destination
